@@ -1,23 +1,49 @@
-import Head from "next/head";
-import About from "../components/home/About";
-import Hero from "../components/home/Hero";
-import useScroll from "../lib/use-scroll";
-import { constants} from "../data/constants";
+// pages/index.js
+import Link from 'next/link'
+import { useCallback } from 'react'
 
 export default function Home() {
-  const [aboutRef, scrollToAboutRef] = useScroll();
+  const handlePlaceholder = useCallback(() => {
+    alert('Coming Soon!')
+  }, [])
 
   return (
-    <>
-      <Head>
-        <title>Home | {constants.data}</title>
-      </Head>
-      <div>
-        <div className="px-5 md:px-20 mx-auto max-w-[1400px] w-full">
-          <Hero scrollToAboutRef={scrollToAboutRef} />
-          <About aboutRef={aboutRef} />
-        </div>
+    <div className="container homeContainer">
+      <h1 className="mainTitle">B.R.I.D.G.E.</h1>
+      <h2 className="subtitle">
+        Better Real-time Interactions for Diagnosis &amp; General Evaluation
+      </h2>
+
+      <div className="buttonRow">
+        <Link href="/patient-info">
+          <a className="buttonLink">Patient Information</a>
+        </Link>
+
+        <button className="placeholderBtn" onClick={handlePlaceholder}>
+          Placeholder
+        </button>
       </div>
-    </>
-  );
+
+      <footer className="footer">
+        <p>
+          <strong>Attribution / Credits:</strong><br />
+          <a
+            href="https://github.com/your-github"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            GitHub
+          </a>
+          {' | '}
+          <a
+            href="https://linkedin.com/in/your-linkedin"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            LinkedIn
+          </a>
+        </p>
+      </footer>
+    </div>
+  )
 }
