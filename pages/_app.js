@@ -9,7 +9,6 @@ function MyApp({ Component, pageProps }) {
         <title>Brdige</title>
         <meta
           name="description"
-          content="Bridge is cool."
         />
         <link rel="icon" href="/favicon3.ico" />
       </Head>
