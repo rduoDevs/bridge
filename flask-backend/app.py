@@ -25,9 +25,9 @@ def medically_translate():
 
     # builds the prompt to medically translate
     data = request.json
-    print(data['content'])
-    query = "From the following information: find relevant information and organize it by the categories of biographical information, current medications (if applicable), current treatment plan (if applicable), medical history (if applicable) and DO NOT REPEAT INFORMATION; for each category, label the contents like \"bio data 1- age: 22\", \"medication 1: ibuprofen\"";
-    query += data['content']
+    print(data['symptoms'])
+    query = 'From the following information: find relevant information and organize it by the categories of symptoms, current medications (if applicable), current treatment plan (if applicable), medical history (if applicable) and DO NOT REPEAT INFORMATION; for each category, label the contents as following: for symptoms: each line should begin with \"Symptom n:\" where n is an incrementing number of the entry; for current medications: each line should begin with \"Medication n:\" where n is an incrementing number of the entry; for current treatment plan: each line should begin with \"Treatment plan n:\" where n is an incrementing number of the entry; for medical history, each line should begin with \"Medical history n:\" where n is an incrementing number of the entry; this is the text.'
+    query += data['symptoms']
 
     # enacts the actual translation
     chat_response = client.chat.complete(

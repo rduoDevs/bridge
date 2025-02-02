@@ -56,10 +56,9 @@ export default function PatientInfo() {
 
   return (
     <div className="container formContainer">
-      <h2>Patient Information</h2>
-
+      <h2 className="pageTitle">Patient Information</h2>
       <form onSubmit={handleSubmit} className="patientForm">
-        <label>
+        <label className="formLabel">
           Name:
           <input
             type="text"
@@ -68,10 +67,11 @@ export default function PatientInfo() {
             required
             value={formData.name}
             onChange={handleChange}
+            className="formInput"
           />
         </label>
 
-        <label>
+        <label className="formLabel">
           Age:
           <input
             type="number"
@@ -81,10 +81,11 @@ export default function PatientInfo() {
             placeholder="Enter age..."
             value={formData.age}
             onChange={handleChange}
+            className="formInput"
           />
         </label>
 
-        <label>
+        <label className="formLabel">
           Contact Email:
           <input
             type="email"
@@ -92,32 +93,42 @@ export default function PatientInfo() {
             placeholder="Enter email..."
             value={formData.email}
             onChange={handleChange}
+            className="formInput"
           />
         </label>
 
-        <label>
+        <label className="formLabel">
           Symptoms:
           <textarea
             name="symptoms"
             rows="3"
-            placeholder="Describe your symptoms in detail..."
-            value={formData.content}
+            placeholder="Describe main symptoms..."
+            value={formData.symptoms}
             onChange={handleChange}
+            className="formTextarea"
           />
         </label>
 
-        <button type="submit">Submit</button>
+        {/* <label className="formLabel">
+          Additional Notes:
+          <textarea
+            name="notes"
+            rows="3"
+            placeholder="Any extra notes or details..."
+            value={formData.notes}
+            onChange={handleChange}
+            className="formTextarea"
+          />
+        </label> */}
+
+        <button type="submit" className="submitButton">
+          Submit
+        </button>
       </form>
-
-      <p>Status: {statusMsg}</p>
-
-    
-
-      <p>
-        <Link href="/">
-          <span className="backLink">← Back to Home</span>
-        </Link>
-      </p>
+      {statusMsg && <p className="statusMsg">{statusMsg}</p>}
+      <Link href="/">
+        <span className="backLink">← Back to Home</span>
+      </Link>
     </div>
-  );
+  )
 }

@@ -17,10 +17,7 @@ export default function Contact() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    // In a real app, you'd do a fetch() to an API or mailto
-    setStatusMsg(`Message from ${formData.name} sent to placeholder@domain.com!`)
-    // Optionally reset
-    // setFormData({ name: '', message: '' })
+    setStatusMsg(`Message from ${formData.name} sent to rduong314@gmail.com!`)
   }
 
   return (
@@ -60,7 +57,7 @@ export default function Contact() {
       </form>
 
       {statusMsg && (
-        <p className="statusMsg">{statusMsg}</p>
+        <p className="Message sent successfully!">{statusMsg}</p>
       )}
 
       <Link href="/">
