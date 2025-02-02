@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import Head from "next/head";
+import HeadingWithIllustration from "../components/HeadingWithIllustration";
 import projects from "../data/outreach.json";
+import PageHeader from "../components/PageHeader";
+import ProjectCard from "../components/ProjectCard";
 
 // pages/patient-info.js
 
@@ -12,7 +15,6 @@ export default function PatientInfo() {
     age: '',
     email: '',
     symptoms: '',
-    notes: ''
   })
   const [statusMsg, setStatusMsg] = useState('')
 
@@ -91,13 +93,13 @@ export default function PatientInfo() {
           <textarea
             name="symptoms"
             rows="3"
-            placeholder="Describe main symptoms..."
+            placeholder="Describe your symptoms in detail..."
             value={formData.symptoms}
             onChange={handleChange}
           />
         </label>
 
-        <label>
+        {/* <label>
           Additional Notes:
           <textarea
             name="notes"
@@ -106,7 +108,7 @@ export default function PatientInfo() {
             value={formData.notes}
             onChange={handleChange}
           />
-        </label>
+        </label> */}
 
         <button type="submit">Submit</button>
       </form>

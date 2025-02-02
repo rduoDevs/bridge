@@ -1,90 +1,150 @@
-import Image from "next/image";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import { useState, useEffect } from "react";
-
-const links = [
-  {
-    label: "Home",
-    href: "/",
-  },
-  {
-    label: "Patient Info",
-    href: "/outreach",
-  },
-  {
-    label: "AI Test",
-    href: "/ai test"
-  }
-
-];
+import { useState } from 'react'
+import Link from 'next/link'
+import { useRef } from 'react'
 
 export default function Navbar() {
-  const [showMobile, setShowMobile] = useState(false);
-  const router = useRouter();
-
-  useEffect(() => {
-    setShowMobile(false);
-  }, []);
+  const aboutSectionRef = useRef(null)
+  const [isOpen, setIsOpen] = useState(false)
+  const scrollToAboutRef = () => {
+    if (aboutSectionRef.current) {
+      aboutSectionRef.current.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
+  // Smooth-scroll to the #about section on the same page
+  const handleScrollToAbout = () => {
+    // If there's an element with id="about", scroll to it
+    const aboutSection = document.getElementById('about')
+    if (aboutSection) {
+      aboutSection.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
 
   return (
-          <div className="flex justify-center py-4 px-12 shadow-[0_-8px_35px_0_rgba(54, 209, 202, 0.3)]">
-          <div className="flex justify-between items-center text-lg font-medium text-accent max-w-[1400px] w-full lg:justify-evenly">
-        <Link href="/">
-          <Image
-            src="\tsalogo.svg"
-            alt="Logo"
-            width={130}
-            height={30}
-            className="cursor-pointer"
-          />
-        </Link>
-        {links.map(({ label, href }) => (
-          <Link key={label} href={href} className="hidden lg:inline-block">
-            <p
-              className={
-                "cursor-pointer" +
-                (router.pathname === href
-                  ? " underline decoration-[#FFB302] decoration-8"
-                  : "")
-              }
+    <nav className="bg-[#fdf8f4] shadow sticky top-0 z-50 font-serif">
+      <div className="max-w-7xl mx-auto px-4">
+        <div className="flex justify-between h-16 items-center">
+          {/* Brand / Logo */}
+          <div className="flex-shrink-0">
+            <Link href="/">
+              {/* A <span> since <a> might be disabled in your config */}
+              <span className="text-2xl font-semibold text-amber-800 hover:text-amber-900 cursor-pointer">
+                Bridge
+              </span>
+            </Link>
+          </div>
+
+          {/* Desktop Menu */}
+          <div className="hidden md:flex space-x-6">
+            {/* Home Link */}
+            <Link href="/">
+              <span className="text-slate-700 hover:text-slate-900 cursor-pointer transition">
+                Home
+              </span>
+            </Link>
+
+            {/* Patient Info -> /patient-info form */}
+            <Link href="/patient-info">
+              <span className="text-slate-700 hover:text-slate-900 cursor-pointer transition">
+                Patient Form
+              </span>
+            </Link>
+
+            {/* Contact link (or whatever else you prefer) */}
+            <Link href="/contact">
+              <span className="text-slate-700 hover:text-slate-900 cursor-pointer transition">
+                Contact
+              </span>
+            </Link>
+          </div>
+
+          {/* Hamburger (mobile) button */}
+          <div className="md:hidden">
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              type="button"
+              className="text-slate-600 hover:text-slate-900 focus:outline-none"
+              aria-label="Toggle menu"
             >
-              {label}
-            </p>
-          </Link>
-        ))}
-        {/* <a
-          href="//medium.com"
-          target="_blank"
-          rel="noreferrer"
-          className="button hidden lg:inline-block"
-          style={{ backgroundColor: '#DB9101', color: '#FFFFFF' }}
-        >
-          Theotechnis
-        </a> */}
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-6 w-6 inline-block lg:hidden cursor-pointer"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          strokeWidth={2}
-          onClick={() => setShowMobile(!showMobile)}
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M4 6h16M4 12h16M4 18h16"
-          />
-        </svg>
+              {isOpen ? (
+                <svg
+                  className="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              ) : (
+                <svg
+                  className="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
+                </svg>
+              )}
+            </button>
+          </div>
+        </div>
       </div>
-      {showMobile && (
-        <MobileNavbar
-          currentRoute={router.pathname}
-          close={() => setShowMobile(false)}
-        />
+
+      {/* Mobile Menu (collapsible) */}
+      {isOpen && (
+        <div className="md:hidden bg-[#fdf8f4] shadow-inner">
+          <div className="px-4 pt-2 pb-3 space-y-2">
+            {/* Home */}
+            <Link href="/">
+              <span
+                onClick={() => setIsOpen(false)}
+                className="block text-slate-700 hover:text-slate-900 transition cursor-pointer"
+              >
+                Home
+              </span>
+            </Link>
+            {/* About -> scroll */}
+            <span
+              onClick={() => {
+                setIsOpen(false)
+                handleScrollToAbout()
+              }}
+              className="block text-slate-700 hover:text-slate-900 transition cursor-pointer"
+            >
+              About Us
+            </span>
+            {/* Patient Info */}
+            <Link href="/patient-info">
+              <span
+                onClick={() => setIsOpen(false)}
+                className="block text-slate-700 hover:text-slate-900 transition cursor-pointer"
+              >
+                Patient Info
+              </span>
+            </Link>
+            {/* Contact */}
+            <Link href="/contact">
+              <span
+                onClick={() => setIsOpen(false)}
+                className="block text-slate-700 hover:text-slate-900 transition cursor-pointer"
+              >
+                Contact
+              </span>
+            </Link>
+          </div>
+        </div>
       )}
-    </div>
-  );
+    </nav>
+  )
 }
- 

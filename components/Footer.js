@@ -3,7 +3,7 @@ export default function Footer() {
     <footer className="flex flex-col items-center justify-center px-2 py-4 mt-4 text-sm text-center border-t text-accent sm:text-xs border-accent/30">
       <div className="flex mb-3">
         <a
-          href="https://instagram.com/"
+          href="https://devpost.com/"
           target="_blank"
           rel="noreferrer"
         >
@@ -18,7 +18,7 @@ export default function Footer() {
           </svg>
         </a>
         <a
-          href="https://github.com"
+          href="https://github.com/rduoDevs/bridge"
           target="_blank"
           rel="noreferrer"
         >
