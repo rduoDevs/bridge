@@ -1,6 +1,9 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRef } from 'react'
+import React, { useState, useEffect } from 'react';
+import Head from "next/head";
+import PageHeader from "../components/PageHeader";
 
 export default function Home() {
   const aboutSectionRef = useRef(null)
@@ -11,7 +14,24 @@ export default function Home() {
     }
   }
 
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    fetch('http://localhost:5000/create_pdf', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ input1: 'test', input2: ['test2'], input3: ['test3'] })
+    })
+      .then((res) => res.json())
+      .then((data) => setData(data))
+      .catch((error) => console.error('Error:', error));
+  }, []);
+
+
   return (
+
     <div className="w-full flex flex-col items-center bg-[#fff6f0] text-[#2d2d2d]">
       {/* Logo at the top */}
       <div className="w-full flex justify-center py-4">
