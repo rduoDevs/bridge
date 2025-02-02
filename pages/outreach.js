@@ -1,9 +1,6 @@
 import React, { useState } from "react";
 import Head from "next/head";
-import HeadingWithIllustration from "../components/HeadingWithIllustration";
 import projects from "../data/outreach.json";
-import PageHeader from "../components/PageHeader";
-import ProjectCard from "../components/ProjectCard";
 
 // pages/patient-info.js
 
