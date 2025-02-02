@@ -1,51 +1,58 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Head from "next/head";
 import HeadingWithIllustration from "../components/HeadingWithIllustration";
 import projects from "../data/outreach.json";
 import PageHeader from "../components/PageHeader";
 import ProjectCard from "../components/ProjectCard";
+import Link from 'next/link';
 
 // pages/patient-info.js
-
-import Link from 'next/link'
 
 export default function PatientInfo() {
   const [formData, setFormData] = useState({
     name: '',
     age: '',
     email: '',
-    symptoms: '',
-  })
-  const [statusMsg, setStatusMsg] = useState('')
+    content: '',
+  });
+  const [statusMsg, setStatusMsg] = useState('');
+  const [triggeredEffect, setTriggerEffect] = useState(false);
+  const [data, setData] = useState(null); // Store response data from API
 
   const handleChange = (e) => {
-    const { name, value } = e.target
-    setFormData(prev => ({ ...prev, [name]: value }))
-  }
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    setStatusMsg('Saving...')
+    e.preventDefault();
+    setStatusMsg('Saving...');
+    setTriggerEffect(true); // Trigger the effect after form submission
+  };
 
-    try {
-      const response = await fetch('/api/patient-info', {
+  useEffect(() => {
+    if (triggeredEffect) {
+      // Fetch data after form submission
+      fetch('http://localhost:5000/medically_translate', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(formData),
       })
-      // if (!response.ok) {
-      //   throw new Error(`Error! status: ${response.status}`)
-      // }
-      const data = await response.json()
-      setStatusMsg('Patient info saved successfully!')
-      console.log('Response data:', data)
-    } catch (err) {
-      console.error('Failed to save:', err)
-      setStatusMsg('Error saving data.')
+        .then((res) => res.json())
+        .then((data) => {
+          setData(data); // Store the response data
+          setStatusMsg('Data successfully saved!'); // Update status message
+          setTriggerEffect(false); // Reset triggeredEffect to stop useEffect
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+          setStatusMsg('Failed to save data.'); // Set error message if request fails
+          setTriggerEffect(false); // Reset to avoid infinite loop
+        });
     }
-  }
+  }, [triggeredEffect, formData]); // Dependency array listens to changes in `triggeredEffect` and `formData`
 
   return (
     <div className="container formContainer">
@@ -94,24 +101,17 @@ export default function PatientInfo() {
             name="symptoms"
             rows="3"
             placeholder="Describe your symptoms in detail..."
-            value={formData.symptoms}
+            value={formData.content}
             onChange={handleChange}
           />
         </label>
 
-        {/* <label>
-          Additional Notes:
-          <textarea
-            name="notes"
-            rows="3"
-            placeholder="Any extra notes or details..."
-            value={formData.notes}
-            onChange={handleChange}
-          />
-        </label> */}
-
         <button type="submit">Submit</button>
       </form>
+
+      <p>Status: {statusMsg}</p>
+
+    
 
       <p>
         <Link href="/">
@@ -119,5 +119,5 @@ export default function PatientInfo() {
         </Link>
       </p>
     </div>
-  )
+  );
 }
