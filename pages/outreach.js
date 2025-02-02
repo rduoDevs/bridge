@@ -5,47 +5,120 @@ import projects from "../data/outreach.json";
 import PageHeader from "../components/PageHeader";
 import ProjectCard from "../components/ProjectCard";
 
-export default function Projects() {
-  const [showMore, setShowMore] = useState(Array(projects.length).fill(false));
-  const toggleButton = (index) => {
-    let arr = showMore;
-    arr[index] = !arr[index];
-    setShowMore([...arr]);
-  };
+// pages/patient-info.js
+
+import Link from 'next/link'
+
+export default function PatientInfo() {
+  const [formData, setFormData] = useState({
+    name: '',
+    age: '',
+    email: '',
+    symptoms: '',
+    notes: ''
+  })
+  const [statusMsg, setStatusMsg] = useState('')
+
+  const handleChange = (e) => {
+    const { name, value } = e.target
+    setFormData(prev => ({ ...prev, [name]: value }))
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setStatusMsg('Saving...')
+
+    try {
+      const response = await fetch('/api/patient-info', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      })
+      // if (!response.ok) {
+      //   throw new Error(`Error! status: ${response.status}`)
+      // }
+      const data = await response.json()
+      setStatusMsg('Patient info saved successfully!')
+      console.log('Response data:', data)
+    } catch (err) {
+      console.error('Failed to save:', err)
+      setStatusMsg('Error saving data.')
+    }
+  }
+
   return (
-    <>
-      <head>
-  <meta charset="UTF-8" />
-  <title>B.R.I.D.G.E. – Home</title>
-  <link rel="stylesheet" href="style.css" />
-  <!-- Google Font Example -->
-  <link rel="preconnect" href="https://fonts.gstatic.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet" />
-</head>
-<body>
-  <div class="container home-container">
-    <h1 class="main-title">B.R.I.D.G.E.</h1>
-    <h2 class="subtitle">Better Real-time Interactions for Diagnosis &amp; General Evaluation</h2>
+    <div className="container formContainer">
+      <h2>Patient Information</h2>
 
-    <div class="button-row">
-      <!-- Button to patient info form -->
-      <a href="patient-info.html" class="button-link">Patient Information</a>
-      <!-- Placeholder button -->
-      <button class="button-link placeholder" onclick="alert('Coming Soon!')">
-        Placeholder
-      </button>
+      <form onSubmit={handleSubmit} className="patientForm">
+        <label>
+          Name:
+          <input
+            type="text"
+            name="name"
+            placeholder="Enter patient name..."
+            required
+            value={formData.name}
+            onChange={handleChange}
+          />
+        </label>
+
+        <label>
+          Age:
+          <input
+            type="number"
+            name="age"
+            min="0"
+            max="120"
+            placeholder="Enter age..."
+            value={formData.age}
+            onChange={handleChange}
+          />
+        </label>
+
+        <label>
+          Contact Email:
+          <input
+            type="email"
+            name="email"
+            placeholder="Enter email..."
+            value={formData.email}
+            onChange={handleChange}
+          />
+        </label>
+
+        <label>
+          Symptoms:
+          <textarea
+            name="symptoms"
+            rows="3"
+            placeholder="Describe main symptoms..."
+            value={formData.symptoms}
+            onChange={handleChange}
+          />
+        </label>
+
+        <label>
+          Additional Notes:
+          <textarea
+            name="notes"
+            rows="3"
+            placeholder="Any extra notes or details..."
+            value={formData.notes}
+            onChange={handleChange}
+          />
+        </label>
+
+        <button type="submit">Submit</button>
+      </form>
+
+      <p>
+        <Link href="/">
+          <span className="backLink">← Back to Home</span>
+        </Link>
+      </p>
     </div>
-  </div>
-
-  <footer class="footer">
-    <p>
-      <strong>Attribution / Credits:</strong><br />
-      <a href="https://github.com/your-github" target="_blank" rel="noopener">GitHub</a> |
-      <a href="https://linkedin.com/in/your-linkedin" target="_blank" rel="noopener">LinkedIn</a>
-    </p>
-  </footer>
-</body>
-</html>
-
-  );
+  )
 }

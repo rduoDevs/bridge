@@ -9,9 +9,14 @@ const links = [
     href: "/",
   },
   {
-    label: "Outreach",
+    label: "Patient Info",
     href: "/outreach",
+  },
+  {
+    label: "AI Test",
+    href: "/ai test"
   }
+
 ];
 
 export default function Navbar() {

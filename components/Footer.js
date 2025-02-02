@@ -32,12 +32,12 @@ export default function Footer() {
       </div>
       <div className="text-[15px] mb-1">
         {}
-        <a target="_blank" href="https://www.youtube.com/" rel="noreferrer">
+        <a target="_blank" rel="noreferrer">
           Bridge
         </a>
       </div>
       <div className="text-[13px]">
-        &copy; {new Date().getFullYear()} hack@brown
+        &copy; {new Date().getFullYear()} Hack@Brown by Lucas, Aaryan, Ryan, Pragyan
       </div>
     </footer>
   );

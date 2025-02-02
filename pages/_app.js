@@ -6,11 +6,12 @@ function MyApp({ Component, pageProps }) {
   return (
     <>
       <Head>
-        <title>Brdige</title>
+        <title>Bridge</title>
         <meta
           name="description"
+          content="Bridge is Supercool."
         />
-        <link rel="icon" href="/favicon3.ico" />
+        <link rel="icon" href="/favicon1.ico" />
       </Head>
       <Layout>
         <Component {...pageProps} />

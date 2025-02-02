@@ -1,7 +1,11 @@
+/* styles/globals.css */
+
+/* Tailwind base, components, and utilities */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url('https://rsms.me/inter/inter.css');
+
+/* Optionally, custom styles or overrides can go here. */
 
 /* General reset and font usage */
 * {
