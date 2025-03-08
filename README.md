@@ -1,34 +1,16 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+### NOTE! The API keys are not included in this repo for security reasons. Please contact the team members for the keys to run the project locally.
 
-## Getting Started
+# Inspiration
+You walk into the doctor's office. Maybe it's your first time with this doctor. Or maybe it's your 100th. At the end of the day, it's always the same story: you don't know how to act. Miscommunication between patients and their doctors is not just a common problem, but a dangerous one: the National Institutes of Health report that up to 27% of medical MALPRACTICE is due to this very miscommunication. While doctors and healthcare practitioners have their malpractice insurance and resources, who's looking out for the patient? Place on top of the patient stressors from everyday life, work, family, and perhaps the struggles of English being the 2nd, or 3rd language, and the miscommunication problem only gets worse.
 
-First, run the development server:
+But imagine a world where patients can clearly express their concerns, and doctors received structured, thorough reports—eliminating miscommunication and saving valuable time. BRIDGE is the AI-powered medical assistant to just that, translating patient concerns into clinically structured reports for their doctors to better prep for the appointment. With aims to be implemented within the contexts of hospitals and healthcare facilities, BRIDGE can be the perfect check-in tool for appointments!
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+# What It Does
+As you enter BRIDGE, you can hop on and click on "Patient Info" to get started! Patients will begin to fill out basic information about themselves, such as their name, age, and email, while expressing any concerns, emotions, and questions they have before meeting with their doctor. Once the information is submitted to the BRIDGE, we use the latest large language model (LLM) capabilities to parse through the data, extract the key takeaways, and format it into a clean, typed-up-in-LaTeX, clinical report of observations, priorities, and other things in the patient's mind to the doctor in a manner that is understandable, reasonable, and rid of potential bias. That way, nothing is forgotten, and things can start on the right foot. It's the ultimate confidence booster and tool for nervous patients.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+In addition, patients are also able to download and view their own BRIDGE report for themselves, so they can keep their own records! Total transparency!
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+# How We Built It
+We built the frontend component of the BRIDGE website with the Next.js framework, powered by React. We also used Flask to handle our backend of the application. Programming languages used included Python, JavaScript, & HTML/CSS. We hosted our project on GitHub.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+The transformation from patient concerns into a full-fledged clinical report starts with REST API calls to the Flask backend, where BRIDGE uses the Mistral Small 3 GenAI to "clean" the patient concerns with various constraints and formatting. The output from this LLM is then parsed through our Python algorithm to turn it into a clean clinical report, generating LaTeX code to create a report in .tex, and then converting the file into a ready-to-download PDF!

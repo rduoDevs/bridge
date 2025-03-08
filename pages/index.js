@@ -49,10 +49,10 @@ export default function Home() {
           {/* Overlay text */}
           <div className="absolute inset-0 bg-black bg-opacity-40 flex flex-col items-center justify-center p-4 text-center">
             <h1 className="text-white text-3xl md:text-5xl font-semibold mb-2">
-              Welcome to Bridge.
+              welcome to bridge.
             </h1>
             <p className="text-white text-lg md:text-xl max-w-3xl">
-              better realtime interactions for doctors, patients &amp; diagnosis.
+              better realtime interactions for diagnosis &amp; general evaluation.
             </p>
           </div>
         </div>
