@@ -1,4 +1,4 @@
-### NOTE! The API keys are not included in this repo for security reasons. Please contact the team members for the keys to run the project locally.
+Learn more about bridge <a href='https://devpost.com/software/better-real-interactions-for-diagnosis-general-evaluation'> in this DevPost!</a>
 
 # Inspiration
 You walk into the doctor's office. Maybe it's your first time with this doctor. Or maybe it's your 100th. At the end of the day, it's always the same story: you don't know how to act. Miscommunication between patients and their doctors is not just a common problem, but a dangerous one: the National Institutes of Health report that up to 27% of medical MALPRACTICE is due to this very miscommunication. While doctors and healthcare practitioners have their malpractice insurance and resources, who's looking out for the patient? Place on top of the patient stressors from everyday life, work, family, and perhaps the struggles of English being the 2nd, or 3rd language, and the miscommunication problem only gets worse.
